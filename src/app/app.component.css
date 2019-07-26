@@ -1,0 +1,10 @@
+.main {
+	padding: 3em;
+	}
+
+.app-name {
+	cursor: pointer;
+	user-select: none;
+	border: 0;
+	outline: 0; 
+}

@@ -1,0 +1,73 @@
+<div *ngIf="customer">
+	<h1>{{ customer.name }} 
+		(
+		<span *ngIf="stock && stock.length"> <strong>{{stock.length}}</strong> Products</span>
+		<span *ngIf="stockFiltered && stockFiltered.length"> / Showing {{stockFiltered.length}}</span>
+		)
+	</h1>
+	
+	<hr/>
+
+	<div> 
+		<span class="stock-filter" (click)="showColours()" *ngIf="stock && stock.length">
+			Filters:  <span *ngIf="!selectedColour">Colour (+)</span>  <span *ngIf="selectedColour">Colour ( {{selectedColour}} )</span>
+		</span>
+		<span class="send-data-action" *ngIf="viewableStock && viewableStock.length" (click)="confirmStockSend()">
+		Send {{viewableStock.length}} Items to {{ customer.name }} </span>
+	</div>
+
+	<br/>
+	
+	<div class="stock" *ngIf="!viewableStock || !viewableStock.length">
+		No Stock Items <span *ngIf="selectedColour" (click)="clearFilters()">clear Filter</span>
+	</div>
+
+	<div class="stock-send__confirm" *ngIf="viewableStock && viewableStock.length && confirmingStockSend">
+		<span class="stock-send__cancel" (click)="cancelStockSend()">x</span>
+		<div *ngIf="!sendResponse">
+			<h3 *ngIf="!sending"> Send {{viewableStock.length}} Items to {{ customer.name }}? </h3>
+			<h3 *ngIf="sending"> Sending  {{viewableStock.length}} Items to {{ customer.name }} ... </h3>
+			<button (click)="sendStock()" *ngIf="!sending"> Yes ( only products in stock will be sent )</button>
+		</div>
+		<div *ngIf="sendResponse && sendResponse.status === 202">
+			<h3> {{viewableStock.length}} Items  Sent to {{ customer.name }} &#x2714;</h3>
+			What they received:
+
+			<br/>
+			<pre> {{sendResponse.payload | json }} </pre>
+		</div>
+
+		<div *ngIf="sendResponse && sendResponse.status !== 202">
+			<h3> Send of {{viewableStock.length}} Items to {{ customer.name }} Failed : (</h3>
+			What we tried to send
+
+			<br/>
+			<pre> {{sendResponse.payload | json }} </pre>
+
+			Possible Reasons:
+
+			.. list ways out here
+		</div>
+	</div>
+
+	<div class="colour-picker" *ngIf="availableColours.length && selectingColours">
+		<div *ngFor="let colour of availableColours">
+			<div class="colour-picker__item"  (click)="selectColour(colour)">
+				{{colour}}
+			</div>
+		</div>
+		
+	</div>
+	<div *ngIf="viewableStock && viewableStock.length" class="stock">
+		<div *ngFor="let stockItem of (viewableStock ? viewableStock.slice(0,limitCount): [])">
+			<app-customer-stock [stockItem]="stockItem"></app-customer-stock>
+		</div>
+		<br/>
+		<div *ngIf="stockLimit && viewableStock.length > limitCount"><span (click)="showAll()">Show all</span></div>
+	</div>
+	<hr/>
+
+</div>
+
+<div *ngIf="!customer">Loading <strong>{{customerParam}} ...</strong></div>
+

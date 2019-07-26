@@ -1,0 +1,21 @@
+.customers-component {
+	margin-left: -1em;
+}
+
+.customers {
+	display: inline-block;
+	margin: 1em;
+	padding: 1em;
+	font-size: 1.4em;
+	text-align: center;
+	line-height: 3em;
+	border: 1px solid grey;
+	width: 20%;
+	cursor: pointer;
+	transition: background-color 0.2s ease-out;
+}
+
+.customers:hover {
+	background-color: #efefef;
+	transition: background-color 0.3s ease-in;
+}

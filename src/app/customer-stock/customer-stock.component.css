@@ -1,0 +1,13 @@
+.stock-item {
+	display: block;
+	margin: 0.2em;
+	padding: 0.3em;
+	line-height: 1.4em;
+	border-bottom: 1px solid #efefef;
+	transition: background-color 0.2s ease-out;
+}
+
+.stock-item__title {
+	font-size: 1.3em;
+	line-height: 1.6em;
+}

@@ -1,0 +1,13 @@
+	<div class="stock-item"  (click)="details()">
+
+		<div class="stock-item__title"> # <strong>{{stockItem.productNumber}}</strong> ( {{stockItem.totalAvailable}} )</div>
+		<div *ngIf="showDetails">
+
+				<strong>Stock </strong>: {{stockItem.physicalStock}} <br/>
+				<strong>Reserved</strong>: {{stockItem.physicalReserved}}<br/>
+				<strong>Ordered</strong>: {{stockItem.orderedInTotal}}<br/>
+				<strong>On Order</strong>: {{stockItem.onOrder}}<br/>
+				<strong>Available</strong>: {{stockItem.totalAvailable}}<br/>
+
+		</div>
+	</div>

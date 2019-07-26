@@ -1,0 +1,9 @@
+<div class="customers-component">
+	<div *ngFor="let customer of customers" class="customers">
+		<div class="customer" [routerLink]="'/customers/' + customer.ref">{{ customer.name }}</div>
+	</div>
+</div>
+
+<pre>{{customers | json}}</pre>
+
+
